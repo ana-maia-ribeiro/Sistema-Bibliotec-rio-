@@ -9,6 +9,7 @@ Para o desenvolvimento deste projeto, fará uso das seguintes ferramentas:
 | Spring Boot  | Framework utilizado para aplicar o JPA e o Spring Security   |
 | React  | Para o desenvolvimento do Frontend  |
 | API Rest | Modelo de API adotado |
+| MySQL | Banco de dados |
 
 
 ## :office: 2 Estrutura do projeto
@@ -33,6 +34,7 @@ Neste diagrama de entidades mostra como os dados se organizam e se ligam em um s
 Nesta sessão mostrará as configurações necessárias para execução deste projeto. Na máquina é necessário instalar: 
 - JAVA 25
 - Node.js
+- MySQL
 
 Passo a passo para clonar o projeto: 
 1. Entrar na página do [Repositório](https://github.com/ana-maia-ribeiro/Sistema-Bibliotec-rio-).
@@ -48,8 +50,10 @@ Passo a passo para clonar o projeto:
 ## :pencil: 4 ChekList das atividades
 Nesta sessão vai apresentar a lista das atividades a serem realizadas para a construção do projeto.
 - [ ] Desenvolvimento do backend
+- [ ] Conexão com Banco de dados
 - [ ] Desenvolvimento da API
 - [ ] Aplicação de segurança
+- [ ] Definição do design do sistema
 - [ ] Desenvolvimento do Frontend
 
 
