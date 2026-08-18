@@ -27,7 +27,7 @@ Neste diagrama de entidades mostra como os dados se organizam e se ligam em um s
 > [!NOTE]
 > Lembrando que as notações com siglas PK é a chave primaria e a FK é a chave estrangeira
 
-> [!WARNING]
+> [!IMPORTANT]
 > Importante lembrar que a estrutura pode sofrer alterações
 
 ## ⚙️ 3 Configurações do projeto
@@ -36,7 +36,7 @@ Nesta sessão mostrará as configurações necessárias para execução deste pr
 - Node.js
 - MySQL
 
-Passo a passo para clonar o projeto: 
+### 3.1 Clonando o projeto
 1. Entrar na página do [Repositório](https://github.com/ana-maia-ribeiro/Sistema-Bibliotec-rio-).
 2. Clicar no botão verde **Code**.
 3. Selecionar HTTPS ou SSH.
@@ -46,6 +46,18 @@ Passo a passo para clonar o projeto:
     ```
     git clone [URL]
     ```
+### 3.2 Instalação do JDK
+1. Acessar o link [Dowload JDK](https://www.azul.com/downloads/)
+2. Abaixar a opção JAVA 25 LTS
+> [!NOTE]
+> Quando a versão recebe a notação LTS (Long-Term Support), significa que a versão recebe atualizações de segurança e correções de erros por muito mais tempo que as edições normais.
+
+### 3.3 Instalação do Node.js
+1. Acessar o link [Dowload Node.js](https://nodejs.org/en/download)
+2. Clicar no botão **Windowns Installer(.msi)**
+
+> [!TIP]
+> Caso utile a IDE VsCode, recomendamos a extensão **Simple React Snippets** para utilização do React.
 
 ## :pencil: 4 ChekList das atividades
 Nesta sessão vai apresentar a lista das atividades a serem realizadas para a construção do projeto.
