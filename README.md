@@ -8,7 +8,7 @@ Para o desenvolvimento deste projeto, fará uso das seguintes ferramentas:
 | JAVA 25  | Para o desenvolvimento do Backend  |
 | Spring Boot  | Framework utilizado para aplicar o JPA e o Spring Security   |
 | React  | Para o desenvolvimento do Frontend  |
-| API Rest | Modelo de API que o sistema fará uso |
+| API Rest | Modelo de API adotado |
 
 
 ## :office: 2 Estrutura do projeto
@@ -47,4 +47,9 @@ Passo a passo para clonar o projeto:
 
 ## :pencil: 4 ChekList das atividades
 Nesta sessão vai apresentar a lista das atividades a serem realizadas para a construção do projeto.
+- [ ] Desenvolvimento do backend
+- [ ] Desenvolvimento da API
+- [ ] Aplicação de segurança
+- [ ] Desenvolvimento do Frontend
+
 
