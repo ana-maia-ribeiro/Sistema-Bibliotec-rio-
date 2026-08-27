@@ -1,6 +1,11 @@
 ## :book: 1 Introdução 
 Este projeto de estudo consiste em construir um sistema bibliotecario, com objetivo de proporcionar o serviço de controle dos emprestimos e do acervo de uma biblioteca.
 
+### 1.1 Detalhes de como o sistema vai fucuncionar 
+**1. Acervo**: o acervo seria o estoque da biblioteca, que irá tabalhar com lotes, os cadastramento dos livros vai ser cadastrado por lotes. Somente os bibliotecarios vão ter acesso ao CRUD, enquanto os alunos só vão poder acessar algumas informações como se há no acervo e a localização do livro desejado. 
+
+**2. Emprestimo**: ao realizar o emprestimo, automaticamente será descontado do estoque. Na visão do bibliotecario, ele terá acesso as informações, como quem foi o biliotecario, a luno e o livro emprestado, para administrar os emprestimo. O Aluno, só vai ter acesso somente a informação de prazo da devolução e de quais livros ele pegou emprestado. O sistema irá avisar ambos os usuários refrente a devolução, caso há atarso na devolução, o sistema irá relatar o atraso ao bibliotecario e ao aluno, porém o aluno irá receber a cobraça do atraso.
+
 Para o desenvolvimento deste projeto, fará uso das seguintes ferramentas: 
 
 | Ferramentas  | Descrição |
@@ -11,6 +16,7 @@ Para o desenvolvimento deste projeto, fará uso das seguintes ferramentas:
 | API Rest | Modelo de API adotado |
 | MySQL | Banco de dados |
 
+---
 
 ## :office: 2 Estrutura do projeto
 Nesta sessão iremos abordar a estrutura do projeto, apresentando atráves dos diagramas 
@@ -30,11 +36,14 @@ Neste diagrama de entidades mostra como os dados se organizam e se ligam em um s
 > [!IMPORTANT]
 > Importante lembrar que a estrutura pode sofrer alterações
 
+---
+
 ## ⚙️ 3 Configurações do projeto
 Nesta sessão mostrará as configurações necessárias para execução deste projeto. Na máquina é necessário instalar: 
 - JAVA 25
 - Node.js
 - MySQL
+- IDEs como VsCode/Spring Tool 
 
 ### 3.1 Clonando o projeto
 1. Entrar na página do [Repositório](https://github.com/ana-maia-ribeiro/Sistema-Bibliotec-rio-).
@@ -58,6 +67,16 @@ Nesta sessão mostrará as configurações necessárias para execução deste pr
 
 > [!TIP]
 > Caso utile a IDE VsCode, recomendamos a extensão **Simple React Snippets** para utilização do React.
+
+### 3.4 Instalação do MySQL
+1. Acessar o link [Dowload MySQL](Dowload)
+2. Executar o instalador 
+3. Criar o login e senha no MySQL
+
+> [!IMPORTANT]
+> É recomendado criar o arquivo **.env** para manter a integridado do user e da senha banco de dados.
+
+---
 
 ## :pencil: 4 ChekList das atividades
 Nesta sessão vai apresentar a lista das atividades a serem realizadas para a construção do projeto.
