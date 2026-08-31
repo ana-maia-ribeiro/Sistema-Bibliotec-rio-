@@ -1,2 +1,3 @@
-2026/08/18-10:01:59.011 3ec4 Creating DB C:\Desenvolvimento\Sistema Bibliotecario\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb since it was missing.
-2026/08/18-10:01:59.086 3ec4 Reusing MANIFEST C:\Desenvolvimento\Sistema Bibliotecario\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2026/08/31-15:33:41.628 1590 Reusing MANIFEST C:\Desenvolvimento\Sistema Bibliotecario\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2026/08/31-15:33:41.643 1590 Recovering log #3
+2026/08/31-15:33:41.647 1590 Reusing old log C:\Desenvolvimento\Sistema Bibliotecario\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/000003.log 
