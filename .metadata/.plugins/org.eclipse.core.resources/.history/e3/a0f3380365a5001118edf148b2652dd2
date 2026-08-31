@@ -1,0 +1,5 @@
+package com.bibliotecario.backend.modal.entites;
+
+public class Publisher {
+
+}
