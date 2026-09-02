@@ -1,0 +1,161 @@
+{
+	"info": {
+		"name": "Biblioteca - Publisher",
+		"description": "Requisicoes de teste para o endpoint POST /publisher do Sistema Bibliotecario.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	],
+	"item": [
+		{
+			"name": "POST publisher - Companhia das Letras",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 100,\n  \"description\": \"Companhia das Letras\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - Editora Rocco",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 200,\n  \"description\": \"Editora Rocco\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - Editora Sextante",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 300,\n  \"description\": \"Editora Sextante\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - Intrinseca",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 400,\n  \"description\": \"Editora Intrinseca\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - Grupo Editorial Record",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 500,\n  \"description\": \"Grupo Editorial Record\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - Editora Aleph",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 600,\n  \"description\": \"Editora Aleph\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - DarkSide Books",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 700,\n  \"description\": \"DarkSide Books\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - Editora Arqueiro",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 800,\n  \"description\": \"Editora Arqueiro\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - Panini",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 900,\n  \"description\": \"Panini Comics\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - sem description (valido)",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": 999\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - INVALIDO sem code (espera 400)",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Editora sem codigo\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		},
+		{
+			"name": "POST publisher - INVALIDO code null (espera 400)",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"code\": null,\n  \"description\": \"Editora com code null\"\n}"
+				},
+				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+			}
+		}
+	]
+}
