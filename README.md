@@ -15,6 +15,7 @@ Para o desenvolvimento deste projeto, fará uso das seguintes ferramentas:
 | React  | Para o desenvolvimento do Frontend  |
 | API Rest | Modelo de API adotado |
 | MySQL | Banco de dados |
+| Maven | Gerenciador de dependências |
 
 ---
 
@@ -44,6 +45,7 @@ Nesta sessão mostrará as configurações necessárias para execução deste pr
 - Node.js
 - MySQL
 - IDEs como VsCode/Spring Tool 
+- Maven
 
 ### 3.1 Clonando o projeto
 1. Entrar na página do [Repositório](https://github.com/ana-maia-ribeiro/Sistema-Bibliotec-rio-).
@@ -69,9 +71,13 @@ Nesta sessão mostrará as configurações necessárias para execução deste pr
 > Caso utile a IDE VsCode, recomendamos a extensão **Simple React Snippets** para utilização do React.
 
 ### 3.4 Instalação do MySQL
-1. Acessar o link [Dowload MySQL](Dowload)
+1. Acessar o link [Dowload MySQL](https://dev.mysql.com/downloads/installer/)
 2. Executar o instalador 
 3. Criar o login e senha no MySQL
+
+### 3.5 Instalação do Maven
+1. Acessar o link [Dowload Maven](https://maven.apache.org/download.cgi)
+2. Executar o instalador
 
 > [!IMPORTANT]
 > É recomendado criar o arquivo **.env** para manter a integridado do user e da senha banco de dados.
@@ -81,7 +87,7 @@ Nesta sessão mostrará as configurações necessárias para execução deste pr
 ## :pencil: 4 ChekList das atividades
 Nesta sessão vai apresentar a lista das atividades a serem realizadas para a construção do projeto.
 - [ ] Desenvolvimento do backend
-- [ ] Conexão com Banco de dados
+- [X] Conexão com Banco de dados
 - [ ] Desenvolvimento da API
 - [ ] Aplicação de segurança
 - [ ] Definição do design do sistema
