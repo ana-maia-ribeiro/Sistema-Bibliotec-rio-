@@ -1,0 +1,34 @@
+package com.bibliotecario.backend.resources;
+import java.net.URI;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.bibliotecario.backend.modal.entites.Bookcase;
+import com.bibliotecario.backend.repositories.BookcaseRepository;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/bookcase")
+public class BookcaseController {
+	
+	@Autowired
+	private BookcaseRepository bookcaseRepository;
+	
+	@PostMapping
+	public ResponseEntity<Bookcase> insert(@Valid @RequestBody Bookcase bookcase) {
+		Bookcase saved = bookcaseRepository.save(bookcase);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(saved.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(saved);
+	}
+
+}

@@ -1,0 +1,62 @@
+package com.bibliotecario.backend.modal.entites;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Bookcase")
+public class Bookcase {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private String hallway;
+	private String shelf;
+	private Integer number;
+	
+	public Bookcase() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Bookcase(Long id, String hallway, String shelf, Integer number) {
+		this.id = id;
+		this.hallway = hallway;
+		this.shelf = shelf;
+		this.number = number;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getHallway() {
+		return hallway;
+	}
+
+	public void setHallway(String hallway) {
+		this.hallway = hallway;
+	}
+
+	public String getShelf() {
+		return shelf;
+	}
+
+	public void setShelf(String shelf) {
+		this.shelf = shelf;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+	
+	
+
+}
