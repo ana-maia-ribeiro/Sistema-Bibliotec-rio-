@@ -23,7 +23,7 @@ public class Bookcase {
 	@Column(nullable = false)
 	private String shelf;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private Integer number;
 	
 	public Bookcase() {
