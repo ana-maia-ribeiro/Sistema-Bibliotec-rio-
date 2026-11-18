@@ -1,161 +1,214 @@
 {
 	"info": {
-		"name": "Biblioteca - Publisher",
-		"description": "Requisicoes de teste para o endpoint POST /publisher do Sistema Bibliotecario.",
+		"name": "Biblioteca API",
+		"description": "Testes do Sistema Bibliotecario - Publisher e Bookcase (CRUD + busca por campo de negocio).\n\nComo usar:\n1. Suba a aplicacao (Run no Eclipse ou mvnw spring-boot:run).\n2. Rode as requisicoes de cima para baixo em cada pasta. O POST guarda o id gerado nas variaveis {{publisherId}} / {{bookcaseId}}, usados pelo PUT/GET/DELETE seguintes.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "http://localhost:8080"
-		}
+		{ "key": "baseUrl", "value": "http://localhost:8080" },
+		{ "key": "publisherId", "value": "" },
+		{ "key": "bookcaseId", "value": "" }
 	],
 	"item": [
 		{
-			"name": "POST publisher - Companhia das Letras",
-			"request": {
-				"method": "POST",
-				"header": [
-					{ "key": "Content-Type", "value": "application/json" }
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 100,\n  \"description\": \"Companhia das Letras\"\n}"
+			"name": "Publisher",
+			"item": [
+				{
+					"name": "1. POST criar publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('status 201', () => pm.response.to.have.status(201));",
+									"const body = pm.response.json();",
+									"pm.collectionVariables.set('publisherId', body.id);",
+									"console.log('publisherId =', body.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"code\": 100,\n  \"description\": \"Companhia das Letras\"\n}" },
+						"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
+				{
+					"name": "2. POST criar outra (Rocco)",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"code\": 200,\n  \"description\": \"Editora Rocco\"\n}" },
+						"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+					}
+				},
+				{
+					"name": "3. GET listar todas",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
+					}
+				},
+				{
+					"name": "4. GET buscar por codigo",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/publisher?code=100",
+							"host": ["{{baseUrl}}"],
+							"path": ["publisher"],
+							"query": [ { "key": "code", "value": "100" } ]
+						}
+					}
+				},
+				{
+					"name": "5. GET buscar por descricao (contem)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/publisher?description=letras",
+							"host": ["{{baseUrl}}"],
+							"path": ["publisher"],
+							"query": [ { "key": "description", "value": "letras" } ]
+						}
+					}
+				},
+				{
+					"name": "6. PUT atualizar publisher",
+					"request": {
+						"method": "PUT",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"code\": 150,\n  \"description\": \"Companhia das Letras - atualizada\"\n}" },
+						"url": { "raw": "{{baseUrl}}/publisher/{{publisherId}}", "host": ["{{baseUrl}}"], "path": ["publisher", "{{publisherId}}"] }
+					}
+				},
+				{
+					"name": "7. PUT id inexistente (espera 404)",
+					"request": {
+						"method": "PUT",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"code\": 1,\n  \"description\": \"nao existe\"\n}" },
+						"url": { "raw": "{{baseUrl}}/publisher/999999", "host": ["{{baseUrl}}"], "path": ["publisher", "999999"] }
+					}
+				},
+				{
+					"name": "8. DELETE publisher (espera 204)",
+					"request": {
+						"method": "DELETE",
+						"url": { "raw": "{{baseUrl}}/publisher/{{publisherId}}", "host": ["{{baseUrl}}"], "path": ["publisher", "{{publisherId}}"] }
+					}
+				},
+				{
+					"name": "9. DELETE de novo (espera 404)",
+					"request": {
+						"method": "DELETE",
+						"url": { "raw": "{{baseUrl}}/publisher/{{publisherId}}", "host": ["{{baseUrl}}"], "path": ["publisher", "{{publisherId}}"] }
+					}
+				}
+			]
 		},
 		{
-			"name": "POST publisher - Editora Rocco",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 200,\n  \"description\": \"Editora Rocco\"\n}"
+			"name": "Bookcase",
+			"item": [
+				{
+					"name": "1. POST criar bookcase",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('status 201', () => pm.response.to.have.status(201));",
+									"const body = pm.response.json();",
+									"pm.collectionVariables.set('bookcaseId', body.id);",
+									"console.log('bookcaseId =', body.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"hallway\": \"Corredor A\",\n  \"shelf\": \"Prateleira 1\",\n  \"number\": 1\n}" },
+						"url": { "raw": "{{baseUrl}}/bookcase", "host": ["{{baseUrl}}"], "path": ["bookcase"] }
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - Editora Sextante",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 300,\n  \"description\": \"Editora Sextante\"\n}"
+				{
+					"name": "2. POST criar outra (Corredor B)",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"hallway\": \"Corredor B\",\n  \"shelf\": \"Prateleira 2\",\n  \"number\": 2\n}" },
+						"url": { "raw": "{{baseUrl}}/bookcase", "host": ["{{baseUrl}}"], "path": ["bookcase"] }
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - Intrinseca",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 400,\n  \"description\": \"Editora Intrinseca\"\n}"
+				{
+					"name": "3. GET listar todas",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "{{baseUrl}}/bookcase", "host": ["{{baseUrl}}"], "path": ["bookcase"] }
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - Grupo Editorial Record",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 500,\n  \"description\": \"Grupo Editorial Record\"\n}"
+				{
+					"name": "4. GET buscar por nome do corredor (contem)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/bookcase?hallway=corredor a",
+							"host": ["{{baseUrl}}"],
+							"path": ["bookcase"],
+							"query": [ { "key": "hallway", "value": "corredor a" } ]
+						}
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - Editora Aleph",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 600,\n  \"description\": \"Editora Aleph\"\n}"
+				{
+					"name": "5. GET buscar por numero do corredor",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/bookcase?number=2",
+							"host": ["{{baseUrl}}"],
+							"path": ["bookcase"],
+							"query": [ { "key": "number", "value": "2" } ]
+						}
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - DarkSide Books",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 700,\n  \"description\": \"DarkSide Books\"\n}"
+				{
+					"name": "6. PUT atualizar bookcase",
+					"request": {
+						"method": "PUT",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"hallway\": \"Corredor A - Ficcao\",\n  \"shelf\": \"Prateleira 1\",\n  \"number\": 10\n}" },
+						"url": { "raw": "{{baseUrl}}/bookcase/{{bookcaseId}}", "host": ["{{baseUrl}}"], "path": ["bookcase", "{{bookcaseId}}"] }
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - Editora Arqueiro",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 800,\n  \"description\": \"Editora Arqueiro\"\n}"
+				{
+					"name": "7. PUT id inexistente (espera 404)",
+					"request": {
+						"method": "PUT",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"hallway\": \"x\",\n  \"shelf\": \"x\",\n  \"number\": 0\n}" },
+						"url": { "raw": "{{baseUrl}}/bookcase/999999", "host": ["{{baseUrl}}"], "path": ["bookcase", "999999"] }
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - Panini",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 900,\n  \"description\": \"Panini Comics\"\n}"
+				{
+					"name": "8. DELETE bookcase (espera 204)",
+					"request": {
+						"method": "DELETE",
+						"url": { "raw": "{{baseUrl}}/bookcase/{{bookcaseId}}", "host": ["{{baseUrl}}"], "path": ["bookcase", "{{bookcaseId}}"] }
+					}
 				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - sem description (valido)",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": 999\n}"
-				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - INVALIDO sem code (espera 400)",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"description\": \"Editora sem codigo\"\n}"
-				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
-		},
-		{
-			"name": "POST publisher - INVALIDO code null (espera 400)",
-			"request": {
-				"method": "POST",
-				"header": [ { "key": "Content-Type", "value": "application/json" } ],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"code\": null,\n  \"description\": \"Editora com code null\"\n}"
-				},
-				"url": { "raw": "{{baseUrl}}/publisher", "host": ["{{baseUrl}}"], "path": ["publisher"] }
-			}
+				{
+					"name": "9. DELETE de novo (espera 404)",
+					"request": {
+						"method": "DELETE",
+						"url": { "raw": "{{baseUrl}}/bookcase/{{bookcaseId}}", "host": ["{{baseUrl}}"], "path": ["bookcase", "{{bookcaseId}}"] }
+					}
+				}
+			]
 		}
 	]
 }
