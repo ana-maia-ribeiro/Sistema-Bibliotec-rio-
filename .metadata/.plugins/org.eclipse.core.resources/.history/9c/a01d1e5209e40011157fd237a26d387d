@@ -1,0 +1,51 @@
+package com.bibliotecario.backend.resources;
+
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.bibliotecario.backend.modal.entites.Archive;
+import com.bibliotecario.backend.repositories.ArchiveRepository;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/Archive")
+public class ArchiveController {
+	
+	@Autowired
+	private ArchiveRepository archiveRepository;
+	
+	@GetMapping
+	public List<Archive> search(@RequestParam(required = false) String title,
+			@RequestParam(required = false) Integer edition) {
+		if (title != null) {
+			return archiveRepository.findByTitle(title);
+		}
+		if (edition != null) {
+			return archiveRepository.findByEdition(edition);
+		}
+		return archiveRepository.findAll();
+	}
+	
+	
+	@PostMapping
+	public ResponseEntity<Archive> insert(@Valid @RequestBody Archive archive) {
+		Archive saved = archiveRepository.save(archive);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(saved.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(saved);
+	}
+
+}

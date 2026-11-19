@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Collection")
+@Table(name = "Archive")
 public class Archive {
 	
 	@Id
@@ -32,6 +32,19 @@ public class Archive {
 	@Column(nullable = false)
 	private String title;
 	
+	@Column(nullable = false)
+	private Integer year;
+	
+	@Column(nullable = false)
+	private Integer edition;
+	
+	private String location;
+	
+	private Integer volume;
+	
+	@Column(nullable = false)
+	private String author;
+	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "typebook_id", nullable = false)
 	private TypeBook typebook;
@@ -41,13 +54,18 @@ public class Archive {
 	}
 
 	public Archive(Long id, Bookcase bookcase, Publisher publisher, Float quantity, String title,
-			TypeBook typebook) {
+			TypeBook typebook,Integer year, Integer edition, String location, Integer volume, String author) {
 		this.id = id;
 		this.bookcase = bookcase;
 		this.publisher = publisher;
 		this.quantity = quantity;
 		this.title = title;
 		this.typebook = typebook;
+		this.year = year;
+		this.edition = edition;
+		this.location = location;
+		this.volume = volume;
+		this.author = author;
 	}
 
 	public Long getId() {
@@ -92,6 +110,46 @@ public class Archive {
 
 	public void setTypebook(TypeBook typebook) {
 		this.typebook = typebook;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getEdition() {
+		return edition;
+	}
+
+	public void setEdition(Integer edition) {
+		this.edition = edition;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public Integer getVolume() {
+		return volume;
+	}
+
+	public void setVolume(Integer volume) {
+		this.volume = volume;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	@Override
