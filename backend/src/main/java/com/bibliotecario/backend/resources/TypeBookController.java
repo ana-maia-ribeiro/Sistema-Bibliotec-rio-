@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,9 +24,11 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/Type")
 public class TypeBookController {
+
 	
 	@Autowired
 	private TypeBookRepository typebookRepository;
+
 	
 	
 	@GetMapping
@@ -47,6 +52,26 @@ public class TypeBookController {
 				.buildAndExpand(saved.getId())
 				.toUri();
 		return ResponseEntity.created(location).body(saved);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<TypeBook> update(@PathVariable Long id, @Valid @RequestBody TypeBook typeBook) {
+		return typebookRepository.findById(id)
+				.map(existing -> {
+					existing.setCode(typeBook.getCode());
+					existing.setDescription(typeBook.getDescription());
+					return ResponseEntity.ok(typebookRepository.save(existing));
+				})
+				.orElse(ResponseEntity.notFound().build());
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		if (!typebookRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		typebookRepository.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
