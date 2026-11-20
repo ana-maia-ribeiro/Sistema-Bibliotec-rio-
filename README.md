@@ -82,15 +82,5 @@ Nesta sessão mostrará as configurações necessárias para execução deste pr
 > [!IMPORTANT]
 > É recomendado criar o arquivo **.env** para manter a integridado do user e da senha banco de dados.
 
----
-
-## :pencil: 4 ChekList das atividades
-Nesta sessão vai apresentar a lista das atividades a serem realizadas para a construção do projeto.
-- [ ] Desenvolvimento do backend
-- [X] Conexão com Banco de dados
-- [ ] Desenvolvimento da API
-- [ ] Aplicação de segurança
-- [ ] Definição do design do sistema
-- [ ] Desenvolvimento do Frontend
 
 

@@ -1,0 +1,110 @@
+package com.bibliotecario.backend.modal.entites;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+@Entity
+@Table(name = "StockEntry")
+public class StockEntry {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	// Preenchidos pelo servidor no momento do registro
+	@Column(nullable = false)
+	private LocalDate date;
+
+	@Column(nullable = false)
+	private LocalTime hour;
+
+	// Quantidade que esta entrando no lote
+	@NotNull
+	@Positive
+	@Column(nullable = false)
+	private Integer quantity;
+
+	// Lote do acervo (Archive) que recebe a entrada
+	@NotNull
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "archive_id", nullable = false)
+	private Archive archive;
+
+	public StockEntry() {
+
+	}
+
+	public StockEntry(Long id, LocalDate date, LocalTime hour, Integer quantity, Archive archive) {
+		this.id = id;
+		this.date = date;
+		this.hour = hour;
+		this.quantity = quantity;
+		this.archive = archive;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public LocalTime getHour() {
+		return hour;
+	}
+
+	public void setHour(LocalTime hour) {
+		this.hour = hour;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Archive getArchive() {
+		return archive;
+	}
+
+	public void setArchive(Archive archive) {
+		this.archive = archive;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StockEntry other = (StockEntry) obj;
+		return Objects.equals(id, other.id);
+	}
+
+}

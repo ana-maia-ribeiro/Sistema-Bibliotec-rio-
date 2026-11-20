@@ -1,0 +1,123 @@
+{
+  "info": {
+    "name": "Sistema Bibliotecario",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" }
+  ],
+  "item": [
+    {
+      "name": "1 - Cadastros base",
+      "item": [
+        {
+          "name": "POST Bookcase",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/bookcase",
+            "body": { "mode": "raw", "raw": "{\n  \"hallway\": \"A\",\n  \"shelf\": \"3\",\n  \"number\": 1\n}" }
+          }
+        },
+        {
+          "name": "POST Publisher",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/publisher",
+            "body": { "mode": "raw", "raw": "{\n  \"code\": 1,\n  \"description\": \"Companhia das Letras\"\n}" }
+          }
+        },
+        {
+          "name": "POST Type",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Type",
+            "body": { "mode": "raw", "raw": "{\n  \"code\": 1,\n  \"description\": \"Romance\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 - Archive (lote)",
+      "item": [
+        {
+          "name": "POST Archive",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Archive",
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Dom Casmurro\",\n  \"author\": \"Machado de Assis\",\n  \"year\": 1899,\n  \"edition\": 3,\n  \"volume\": 1,\n  \"quantity\": 0,\n  \"location\": \"Sala principal\",\n  \"bookcase\":  { \"id\": 1 },\n  \"publisher\": { \"id\": 1 },\n  \"typebook\":  { \"id\": 1 }\n}" }
+          }
+        },
+        {
+          "name": "GET Archive (todos)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/Archive" }
+        }
+      ]
+    },
+    {
+      "name": "3 - StockEntry",
+      "item": [
+        {
+          "name": "POST StockEntry (10 unidades)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/StockEntry",
+            "body": { "mode": "raw", "raw": "{\n  \"quantity\": 10,\n  \"archive\": { \"id\": 1 }\n}" }
+          }
+        },
+        {
+          "name": "POST StockEntry (5 unidades)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/StockEntry",
+            "body": { "mode": "raw", "raw": "{\n  \"quantity\": 5,\n  \"archive\": { \"id\": 1 }\n}" }
+          }
+        },
+        {
+          "name": "GET StockEntry (todas)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/StockEntry" }
+        },
+        {
+          "name": "GET StockEntry por lote",
+          "request": { "method": "GET", "url": "{{baseUrl}}/StockEntry?archive=1" }
+        },
+        {
+          "name": "GET StockEntry por data",
+          "request": { "method": "GET", "url": "{{baseUrl}}/StockEntry?date=2026-11-20" }
+        },
+        {
+          "name": "ERRO - quantidade zero (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/StockEntry",
+            "body": { "mode": "raw", "raw": "{\n  \"quantity\": 0,\n  \"archive\": { \"id\": 1 }\n}" }
+          }
+        },
+        {
+          "name": "ERRO - sem lote (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/StockEntry",
+            "body": { "mode": "raw", "raw": "{\n  \"quantity\": 5\n}" }
+          }
+        },
+        {
+          "name": "ERRO - lote inexistente (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/StockEntry",
+            "body": { "mode": "raw", "raw": "{\n  \"quantity\": 5,\n  \"archive\": { \"id\": 999 }\n}" }
+          }
+        }
+      ]
+    }
+  ]
+}
