@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Archive")
@@ -19,22 +20,27 @@ public class Archive {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "bookcase_id", nullable = false)
 	private Bookcase bookcase;
 
+	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "publisher_id", nullable = false)
 	private Publisher publisher;
 	
 	private Float quantity;
 	
+	@NotNull
 	@Column(nullable = false)
 	private String title;
 	
+	@NotNull
 	@Column(nullable = false)
 	private Integer year;
 	
+	@NotNull
 	@Column(nullable = false)
 	private Integer edition;
 	
@@ -42,9 +48,11 @@ public class Archive {
 	
 	private Integer volume;
 	
+	@NotNull
 	@Column(nullable = false)
 	private String author;
 	
+	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "typebook_id", nullable = false)
 	private TypeBook typebook;
