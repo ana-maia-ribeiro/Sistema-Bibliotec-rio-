@@ -13,22 +13,26 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+
 @Entity
 @Table(name = "Book")
 public class Book {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull
-	@Column(nullable = false)
+
+	@Column(nullable = false, unique = true)
 	private Integer code;
-	
+
 	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_archive", nullable = false)
 	private Archive archive;
+
+	public Book() {
+
+	}
 
 	public Book(Long id, Integer code, Archive archive) {
 		this.id = id;
@@ -72,7 +76,5 @@ public class Book {
 		Book other = (Book) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 
 }

@@ -36,6 +36,8 @@ public class Archive {
 	@Column(nullable = false)
 	private String title;
 	
+	private String subtitle;
+	
 	@NotNull
 	@Column(nullable = false)
 	private Integer year;
@@ -62,7 +64,7 @@ public class Archive {
 	}
 
 	public Archive(Long id, Bookcase bookcase, Publisher publisher, Float quantity, String title,
-			TypeBook typebook,Integer year, Integer edition, String location, Integer volume, String author) {
+			TypeBook typebook,Integer year, Integer edition, String location, Integer volume, String author, String subtitle) {
 		this.id = id;
 		this.bookcase = bookcase;
 		this.publisher = publisher;
@@ -74,6 +76,7 @@ public class Archive {
 		this.location = location;
 		this.volume = volume;
 		this.author = author;
+		this.subtitle = subtitle;
 	}
 
 	public Long getId() {
@@ -158,6 +161,14 @@ public class Archive {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
 	}
 
 	@Override

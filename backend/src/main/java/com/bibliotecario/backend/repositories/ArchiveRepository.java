@@ -17,5 +17,7 @@ public interface ArchiveRepository extends JpaRepository<Archive, Long> {
 	List<Archive> findByPublisherDescriptionContainingIgnoreCase(String description);
 	
 	List<Archive> findByAuthor (String author);
+	
+	List<Archive> findBySubtitle (String subtitle);
 
 }
