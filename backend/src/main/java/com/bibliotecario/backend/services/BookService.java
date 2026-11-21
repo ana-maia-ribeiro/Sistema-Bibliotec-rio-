@@ -1,0 +1,57 @@
+package com.bibliotecario.backend.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.bibliotecario.backend.modal.entites.Archive;
+import com.bibliotecario.backend.modal.entites.Book;
+import com.bibliotecario.backend.repositories.BookRepository;
+
+@Service
+public class BookService {
+
+	private static final int FIRST_CODE = 1_000_000;
+	private static final int LAST_CODE = 9_999_999;
+
+	@Autowired
+	private BookRepository bookRepository;
+
+	@Transactional
+	public List<Book> generateBooks(Archive archive, int quantity) {
+		Integer max = bookRepository.findMaxCode();
+		int next = (max == null || max < FIRST_CODE) ? FIRST_CODE : max + 1;
+
+		if (next + quantity - 1 > LAST_CODE) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT,
+					"Limite de codigos de 7 digitos atingido");
+		}
+
+		List<Book> books = new ArrayList<>();
+		for (int i = 0; i < quantity; i++) {
+			books.add(new Book(null, next + i, archive));
+		}
+		return bookRepository.saveAll(books);
+	}
+
+
+	@Transactional
+	public List<Book> generateMissingBooks(Archive archive) {
+		int lotQuantity = archive.getQuantity() != null ? archive.getQuantity().intValue() : 0;
+		long existing = bookRepository.countByArchiveId(archive.getId());
+		int missing = (int) (lotQuantity - existing);
+
+		if (missing <= 0) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					"O lote " + archive.getId() + " ja tem todos os exemplares com codigo ("
+							+ existing + " de " + lotQuantity + ")");
+		}
+		return generateBooks(archive, missing);
+	}
+
+}

@@ -31,7 +31,7 @@ public class ArchiveController {
 	@GetMapping
 	public List<Archive> search(@RequestParam(required = false) String title,
 			@RequestParam(required = false) Integer edition, @RequestParam(required = false) Integer year, 
-			@RequestParam(required = false) String publisher, @RequestParam(required = false) String author) {
+			@RequestParam(required = false) String publisher, @RequestParam(required = false) String author, @RequestParam(required = false) String subtitle) {
 		if (title != null) {
 			return archiveRepository.findByTitle(title);
 		}
@@ -46,6 +46,9 @@ public class ArchiveController {
 		}
 		if (author != null) {
 			return archiveRepository.findByAuthor(author);
+		}
+		if (subtitle != null) {
+			return archiveRepository.findBySubtitle(subtitle);
 		}
 		return archiveRepository.findAll();
 	}
@@ -75,6 +78,7 @@ public class ArchiveController {
 					existing.setTypebook(archive.getTypebook());
 					existing.setVolume(archive.getVolume());
 					existing.setYear(archive.getYear());
+					existing.setSubtitle(archive.getSubtitle());
 					
 					return ResponseEntity.ok(archiveRepository.save(existing));
 				})

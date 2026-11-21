@@ -23,6 +23,7 @@ import com.bibliotecario.backend.modal.entites.Archive;
 import com.bibliotecario.backend.modal.entites.StockEntry;
 import com.bibliotecario.backend.repositories.ArchiveRepository;
 import com.bibliotecario.backend.repositories.StockEntryRepository;
+import com.bibliotecario.backend.services.BookService;
 
 import jakarta.validation.Valid;
 
@@ -35,6 +36,9 @@ public class StockEntryController {
 
 	@Autowired
 	private ArchiveRepository archiveRepository;
+
+	@Autowired
+	private BookService bookService;
 
 	@GetMapping
 	public List<StockEntry> search(
@@ -70,6 +74,9 @@ public class StockEntryController {
 		stockEntry.setHour(now.toLocalTime().withNano(0));
 		stockEntry.setArchive(archive);
 		StockEntry saved = stockEntryRepository.save(stockEntry);
+
+		// Destrincha a entrada: cada livro que chegou ganha seu codigo unico
+		bookService.generateBooks(archive, stockEntry.getQuantity());
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
