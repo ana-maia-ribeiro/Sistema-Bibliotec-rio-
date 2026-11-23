@@ -1,0 +1,8 @@
+package com.bibliotecario.backend.resources;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RequestMapping("/librarian")
+public class LibrarianController {
+
+}

@@ -1,0 +1,131 @@
+{
+  "info": {
+    "name": "Librarian",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "librarianId", "value": "1" },
+    { "key": "librarianId2", "value": "2" }
+  ],
+  "item": [
+    {
+      "name": "1 - Cadastrar",
+      "item": [
+        {
+          "name": "POST Librarian (manha)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) { pm.collectionVariables.set('librarianId', pm.response.json().id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Librarian",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Marina Souza\",\n  \"email\": \"marina.souza@example.com\",\n  \"entrance\": \"08:00:00\",\n  \"exit\": \"14:00:00\"\n}" }
+          }
+        },
+        {
+          "name": "POST Librarian (tarde)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) { pm.collectionVariables.set('librarianId2', pm.response.json().id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Librarian",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Carlos Lima\",\n  \"email\": \"carlos.lima@example.com\",\n  \"entrance\": \"14:00:00\",\n  \"exit\": \"20:00:00\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 - Consultar",
+      "item": [
+        {
+          "name": "GET todos",
+          "request": { "method": "GET", "url": "{{baseUrl}}/Librarian" }
+        },
+        {
+          "name": "GET por nome",
+          "request": { "method": "GET", "url": "{{baseUrl}}/Librarian?name=Marina%20Souza" }
+        },
+        {
+          "name": "GET por email",
+          "request": { "method": "GET", "url": "{{baseUrl}}/Librarian?email=carlos.lima@example.com" }
+        }
+      ]
+    },
+    {
+      "name": "3 - Atualizar e excluir",
+      "item": [
+        {
+          "name": "PUT Librarian (muda horario)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Librarian/{{librarianId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Marina Souza\",\n  \"email\": \"marina.souza@example.com\",\n  \"entrance\": \"09:00:00\",\n  \"exit\": \"15:00:00\"\n}" }
+          }
+        },
+        {
+          "name": "DELETE Librarian (tarde)",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/Librarian/{{librarianId2}}" }
+        }
+      ]
+    },
+    {
+      "name": "4 - Erros esperados",
+      "item": [
+        {
+          "name": "POST sem email (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Librarian",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Sem Email\",\n  \"entrance\": \"08:00:00\",\n  \"exit\": \"14:00:00\"\n}" }
+          }
+        },
+        {
+          "name": "POST hora sem segundos (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Librarian",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Hora Errada\",\n  \"email\": \"hora.errada@example.com\",\n  \"entrance\": \"08:00\",\n  \"exit\": \"14:00\"\n}" }
+          }
+        },
+        {
+          "name": "PUT id inexistente (404)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/Librarian/999999",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Ninguem\",\n  \"email\": \"ninguem@example.com\",\n  \"entrance\": \"08:00:00\",\n  \"exit\": \"14:00:00\"\n}" }
+          }
+        },
+        {
+          "name": "DELETE id inexistente (404)",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/Librarian/999999" }
+        }
+      ]
+    }
+  ]
+}
