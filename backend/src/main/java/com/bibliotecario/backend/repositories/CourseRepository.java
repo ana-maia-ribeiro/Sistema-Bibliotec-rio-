@@ -1,0 +1,17 @@
+package com.bibliotecario.backend.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bibliotecario.backend.modal.entites.Course;
+
+public interface CourseRepository extends JpaRepository<Course, Long> {
+	
+	List<Course> findByDescription(String description);
+	
+	List<Course> findByClassroom(String classroom);
+	
+	List<Course> findByNivel (Integer nivel);
+
+}

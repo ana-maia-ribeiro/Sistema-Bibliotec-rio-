@@ -1,0 +1,80 @@
+package com.bibliotecario.backend.modal.entites;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "Course")
+public class Course {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@NotNull
+	private String description;
+	
+	@NotNull
+	private String classroom;
+	
+	@NotNull
+	private String runner;
+	
+	@NotNull
+	private Integer nivel;
+	
+	public Course() {
+		
+	}
+
+	public Course(Long id, @NotNull String description, @NotNull String classroom, @NotNull String runner,
+			@NotNull Integer nivel) {
+		this.id = id;
+		this.description = description;
+		this.classroom = classroom;
+		this.runner = runner;
+		this.nivel = nivel;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(String classroom) {
+		this.classroom = classroom;
+	}
+
+	public String getRunner() {
+		return runner;
+	}
+
+	public void setRunner(String runner) {
+		this.runner = runner;
+	}
+
+	public Integer getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(Integer nivel) {
+		this.nivel = nivel;
+	}
+	
+	
+}

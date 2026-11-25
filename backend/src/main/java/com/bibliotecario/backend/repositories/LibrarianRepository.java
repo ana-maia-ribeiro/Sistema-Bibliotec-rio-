@@ -1,0 +1,16 @@
+package com.bibliotecario.backend.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bibliotecario.backend.modal.entites.Librarian;
+
+public interface LibrarianRepository extends JpaRepository<Librarian, Long>{
+	
+	List<Librarian> findByName(String name);
+	
+	List<Librarian> findByEmail(String email);
+	
+
+}

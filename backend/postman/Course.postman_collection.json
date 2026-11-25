@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "Course",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "courseId", "value": "1" },
+    { "key": "courseId2", "value": "2" }
+  ],
+  "item": [
+    {
+      "name": "1 - Cadastrar",
+      "item": [
+        {
+          "name": "POST Course (Informatica)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) { pm.collectionVariables.set('courseId', pm.response.json().id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/course",
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Informatica\",\n  \"classroom\": \"Sala 101\",\n  \"runner\": \"Matutino\",\n  \"nivel\": 1\n}" }
+          }
+        },
+        {
+          "name": "POST Course (Administracao)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) { pm.collectionVariables.set('courseId2', pm.response.json().id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/course",
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Administracao\",\n  \"classroom\": \"Sala 205\",\n  \"runner\": \"Noturno\",\n  \"nivel\": 2\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 - Consultar",
+      "item": [
+        {
+          "name": "GET todos",
+          "request": { "method": "GET", "url": "{{baseUrl}}/course" }
+        },
+        {
+          "name": "GET por nivel",
+          "request": { "method": "GET", "url": "{{baseUrl}}/course?nivel=1" }
+        },
+        {
+          "name": "GET por descricao",
+          "request": { "method": "GET", "url": "{{baseUrl}}/course?description=Informatica" }
+        },
+        {
+          "name": "GET por sala",
+          "request": { "method": "GET", "url": "{{baseUrl}}/course?classroom=Sala%20205" }
+        }
+      ]
+    },
+    {
+      "name": "3 - Atualizar e excluir",
+      "item": [
+        {
+          "name": "PUT Course (muda sala e nivel)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/course/{{courseId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Informatica\",\n  \"classroom\": \"Laboratorio 3\",\n  \"runner\": \"Matutino\",\n  \"nivel\": 2\n}" }
+          }
+        },
+        {
+          "name": "DELETE Course (Administracao)",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/course/{{courseId2}}" }
+        }
+      ]
+    },
+    {
+      "name": "4 - Erros esperados",
+      "item": [
+        {
+          "name": "POST sem classroom (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/course",
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Sem Sala\",\n  \"runner\": \"Matutino\",\n  \"nivel\": 1\n}" }
+          }
+        },
+        {
+          "name": "POST nivel em texto (400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/course",
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Nivel Errado\",\n  \"classroom\": \"Sala 101\",\n  \"runner\": \"Matutino\",\n  \"nivel\": \"basico\"\n}" }
+          }
+        },
+        {
+          "name": "PUT id inexistente (404)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/course/999999",
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Nenhum\",\n  \"classroom\": \"Sala 0\",\n  \"runner\": \"Matutino\",\n  \"nivel\": 1\n}" }
+          }
+        },
+        {
+          "name": "DELETE id inexistente (404)",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/course/999999" }
+        }
+      ]
+    }
+  ]
+}
