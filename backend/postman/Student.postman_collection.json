@@ -1,0 +1,252 @@
+{
+  "info": {
+    "name": "Student",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "courseId",
+      "value": "1"
+    },
+    {
+      "key": "studentId",
+      "value": "1"
+    },
+    {
+      "key": "studentId2",
+      "value": "2"
+    },
+    {
+      "key": "studentCode",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "0 - Preparar curso",
+      "item": [
+        {
+          "name": "POST Course (para vincular os alunos)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) { pm.collectionVariables.set('courseId', pm.response.json().id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/course",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Informatica\",\n  \"classroom\": \"Sala 101\",\n  \"runner\": \"Matutino\",\n  \"nivel\": 1\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1 - Cadastrar",
+      "item": [
+        {
+          "name": "POST Student (com email)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) { pm.collectionVariables.set('studentId', pm.response.json().id); pm.collectionVariables.set('studentCode', pm.response.json().code); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/student",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Joao Pereira\",\n  \"email\": \"joao.pereira@example.com\",\n  \"semester\": 1,\n  \"course\": { \"id\": {{courseId}} }\n}"
+            }
+          }
+        },
+        {
+          "name": "POST Student (sem email)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "if (pm.response.code === 201) { pm.collectionVariables.set('studentId2', pm.response.json().id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/student",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ana Costa\",\n  \"semester\": 3,\n  \"course\": { \"id\": {{courseId}} }\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 - Consultar",
+      "item": [
+        {
+          "name": "GET todos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/student"
+          }
+        },
+        {
+          "name": "GET por RA (code)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/student?code={{studentCode}}"
+          }
+        },
+        {
+          "name": "GET por nome",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/student?name=Ana%20Costa"
+          }
+        },
+        {
+          "name": "GET por email",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/student?email=joao.pereira@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3 - Atualizar e excluir",
+      "item": [
+        {
+          "name": "PUT Student (muda semestre e email)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/student/{{studentId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Joao Pereira\",\n  \"email\": \"joao.p@example.com\",\n  \"semester\": 2,\n  \"course\": { \"id\": {{courseId}} }\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE Student (Ana)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/student/{{studentId2}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4 - Erros esperados",
+      "item": [
+        {
+          "name": "POST sem course (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/student",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sem Curso\",\n  \"semester\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "POST curso inexistente (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/student",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Curso Fantasma\",\n  \"semester\": 1,\n  \"course\": { \"id\": 999999 }\n}"
+            }
+          }
+        },
+        {
+          "name": "PUT id inexistente (404)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/student/999999",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ninguem\",\n  \"semester\": 1,\n  \"course\": { \"id\": {{courseId}} }\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE id inexistente (404)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/student/999999"
+          }
+        }
+      ]
+    }
+  ]
+}
