@@ -1,5 +1,0 @@
-package com.bibliotecario.backend.repositories;
-
-public interface CollentionRepository {
-
-}

@@ -1,0 +1,17 @@
+package com.bibliotecario.backend.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bibliotecario.backend.modal.entites.Student;
+
+public interface StudentRepository extends JpaRepository<Student, Long>{
+	
+	List<Student> findByName (String name);
+	
+	List<Student> findByCode (String code);
+	
+	List<Student> findByEmail (String email);
+
+}

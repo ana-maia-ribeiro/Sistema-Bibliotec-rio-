@@ -1,0 +1,36 @@
+package com.bibliotecario.backend.resources;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bibliotecario.backend.modal.entites.Publisher;
+import com.bibliotecario.backend.modal.entites.Student;
+import com.bibliotecario.backend.repositories.StudentRepository;
+
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	@GetMapping
+	public List<Student> search(@RequestParam(required = false) String code,
+			@RequestParam(required = false) String name, @RequestParam(required = false) String email) {
+		if (code != null) {
+			return studentRepository.findByCode(code);
+		}
+		if (name != null) {
+			return studentRepository.findByName(name);
+		}
+		if (email != null) {
+			return studentRepository.findByEmail(email);
+		}
+		return studentRepository.findAll();
+	}
+}
